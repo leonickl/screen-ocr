@@ -1,33 +1,73 @@
 # Screenshot OCR
 
-This script allows you to capture a custom screenshot by dragging your mouse, then automatically extracts text from the image using OCR and copies it to your clipboard.
+This script lets you capture a custom screenshot by dragging your mouse, then automatically extracts text from the image using OCR and copies it to your clipboard.
 
-## Features
+## Installation
 
-Select a region of the screen interactively.
+### 1. Install the script
 
-Perform OCR on the captured screenshot.
+Run this command in your terminal to download and set up the script in `~/.local/bin` (create the folder if it doesn’t exist):
 
-Copy recognized text directly to the clipboard for quick use.
+```bash
+mkdir -p ~/.local/bin && curl -sSL https://github.com/leonickl/screen-ocr/raw/refs/heads/main/main.bash -o ~/.local/bin/socr && chmod +x ~/.local/bin/socr
+```
 
-Easily configurable screenshot tool and language settings.
+After this, you can run the tool with:
 
-## Requirements
+```bash
+socr
+```
 
-**Screenshot utility:** By default, the script uses gnome-screenshot, but you can replace it with any other tool (e.g., scrot, maim).
+Make sure `~/.local/bin` is in your `$PATH`. On most modern Linux distros, it already is. You can check with:
 
-**Tesseract OCR:** Make sure Tesseract is installed.
+```bash
+echo $PATH
+```
 
-**Language data:** The OCR language is preconfigured as German. To use German, install the language package (e.g., tesseract-data-deu). You can change the language in the code as needed.
+---
+
+### 2. Install dependencies
+
+The script relies on the following tools:
+
+* **Screenshot utility**: By default, it uses `gnome-screenshot`. You can swap in another tool (e.g., `scrot`, `maim`, or on macOS `screencapture`).
+* **ImageMagick**: Provides the `magick` command for preprocessing screenshots.
+* **Tesseract OCR**: Extracts text from the image.
+* **Language data**: This script is preconfigured for German. Install the language pack (e.g., `tesseract-ocr-deu` / `tesseract-langpack-deu` / `tesseract-data-deu`). You can change the language in the source code, but in my case also English texts were recognized properly.
+* **xclip**: Copies recognized text to the clipboard.
+
+Install them with your package manager:
+
+#### Debian/Ubuntu
+
+```bash
+sudo apt update
+sudo apt install gnome-screenshot imagemagick tesseract-ocr tesseract-ocr-deu xclip
+```
+
+#### Fedora
+
+```bash
+sudo dnf install gnome-screenshot ImageMagick tesseract tesseract-langpack-deu xclip
+```
+
+#### Arch Linux
+
+```bash
+sudo pacman -S gnome-screenshot imagemagick tesseract tesseract-data-deu xclip
+```
+
+#### macOS (via Homebrew, using `screencapture` instead of `gnome-screenshot`)
+
+```bash
+brew install imagemagick tesseract xclip
+```
+
+---
 
 ## Usage
 
-Run the script.
-
-Drag your mouse to select the area you want to capture.
-
-The extracted text will be copied to your clipboard automatically.
-
-## Shortcut
-
-You can assign a keyboard shortcut to the script in your settings, e. g., `Win + Shift + T` for quick access.
+1. Run the script with `socr`.
+2. Drag your mouse to select the area you want to capture.
+3. The recognized text will be copied to your clipboard automatically.
+4. For quick access, assign the script to a custom keyboard shortcut in your system settings - e.g. `Win + Shift + T`.
