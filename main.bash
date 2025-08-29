@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-# create temp file
+# check if dependencies exist
+which gnome-screenshot
+which magick
+which tesseract
+which xclip
+
 file="$(mktemp /tmp/temp.XXXXXX.jpg)"
 
 # take screenshot (interactive with mouse)
