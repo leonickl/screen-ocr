@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 
-# check if dependencies exist
-which gnome-screenshot
-which magick
-which tesseract
-which xclip
+missing=()
+
+for cmd in gnome-screenshot magick tesseract xclip; do
+    if ! command -v "$cmd" &>/dev/null; then
+        missing+=("$cmd")
+    fi
+done
+
+if [ ${#missing[@]} -ne 0 ]; then
+    echo "The following commands could not be found:"
+    for cmd in "${missing[@]}"; do
+        echo "  - $cmd"
+    done
+    exit 1
+fi
 
 file="$(mktemp /tmp/temp.XXXXXX.jpg)"
 
