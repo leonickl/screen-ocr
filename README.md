@@ -30,7 +30,7 @@ echo $PATH
 
 The script relies on the following tools:
 
-* **Screenshot utility**: By default, it uses `gnome-screenshot`. You can swap in another tool (e.g., `scrot`, `maim`, or on macOS `screencapture`).
+* **Screenshot utility**: By default, it uses `flameshot`. If you're not on Wayland, you can swap in another tool (e.g., `gnome-screenshot`, `scrot`, `maim`, or on macOS `screencapture`). Just replace all the occurences of `flameshot` in the executable.
 * **ImageMagick**: Provides the `magick` command for preprocessing screenshots.
 * **Tesseract OCR**: Extracts text from the image.
 * **Language data**: This script is preconfigured for German. Install the language pack (e.g., `tesseract-ocr-deu` / `tesseract-langpack-deu` / `tesseract-data-deu`). You can change the language in the source code, but in my case also English texts were recognized properly.
@@ -42,25 +42,19 @@ Install them with your package manager:
 
 ```bash
 sudo apt update
-sudo apt install gnome-screenshot imagemagick tesseract-ocr tesseract-ocr-deu xclip
+sudo apt install flameshot imagemagick tesseract-ocr tesseract-ocr-deu xclip
 ```
 
 #### Fedora
 
 ```bash
-sudo dnf install gnome-screenshot ImageMagick tesseract tesseract-langpack-deu xclip
+sudo dnf install flameshot ImageMagick tesseract tesseract-langpack-deu xclip
 ```
 
 #### Arch Linux
 
 ```bash
-sudo pacman -S gnome-screenshot imagemagick tesseract tesseract-data-deu xclip
-```
-
-#### macOS (via Homebrew, using `screencapture` instead of `gnome-screenshot`)
-
-```bash
-brew install imagemagick tesseract xclip
+sudo pacman -S flameshot imagemagick tesseract tesseract-data-deu xclip
 ```
 
 ---

@@ -2,7 +2,7 @@
 
 missing=()
 
-for cmd in gnome-screenshot magick tesseract xclip; do
+for cmd in flameshot magick tesseract xclip; do
     if ! command -v "$cmd" &>/dev/null; then
         missing+=("$cmd")
     fi
@@ -10,16 +10,19 @@ done
 
 if [ ${#missing[@]} -ne 0 ]; then
     echo "The following commands could not be found:"
+
     for cmd in "${missing[@]}"; do
         echo "  - $cmd"
     done
+
     exit 1
 fi
 
-file="$(mktemp /tmp/temp.XXXXXX.jpg)"
+file="/tmp/ocr-$(date +%s%N).jpg"
 
-# capture a screenshot (interactive: select area with mouse)
-gnome-screenshot -a -f "$file"
+# capture the screenshot
+flameshot gui -p "$file" # select this on Wayland
+# gnome-screenshot -a -f "$file" # this can be used with X11
 
 # preprocess image for OCR
 magick "$file" -contrast-stretch 1% -level 29%,76% -compress jpeg -strip -quality 40% "$file"
